@@ -1,8 +1,11 @@
+import { Header, Footer } from "./components";
+
 function App() {
   return (
-    <div>
-      <h1>Edumel</h1>
-    </div>
+    <>
+      <Header />
+      <Footer />
+    </>
   );
 }
 
