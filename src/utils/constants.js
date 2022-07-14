@@ -1,0 +1,12 @@
+export const courses_url = `https://mobeena2.sg-host.com/wp-json/edumel/courses`;
+export const courses_categories_url = `https://mobeena2.sg-host.com/wp-json/edumel/courses_categories`;
+export const single_course_url = `https://mobeena2.sg-host.com/wp-json/edumel/single_course?id=`;
+export const posts_url = `https://mobeena2.sg-host.com/wp-json/edumel/blog_posts`;
+export const single_post_url = `https://mobeena2.sg-host.com/wp-json/edumel/single_post?slug=`;
+export const pages_url = `https://mobeena2.sg-host.com/wp-json/edumel/pages?slug=`;
+export const options_url = `https://mobeena2.sg-host.com/wp-json/edumel/options`;
+export const all_instructors_url = `https://mobeena2.sg-host.com/wp-json/edumel/instructors`;
+export const course_instructors_url = `https://mobeena2.sg-host.com/wp-json/edumel/course_instructors=?course_id=`;
+export const all_reviews_url = `https://mobeena2.sg-host.com/wp-json/edumel/reviews`;
+export const course_reviews_url = `https://mobeena2.sg-host.com/wp-json/edumel/course_reviews?course_id=`;
+export const search_url = `https://mobeena2.sg-host.com/wp-json/edumel/search?keyword=`;
