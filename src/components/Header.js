@@ -1,5 +1,13 @@
+import TopBar from "./TopBar";
+import Navbar from "./Navbar";
+
 const Header = () => {
-  return <h2>Header</h2>;
+  return (
+    <header className="header-style-1" id="top-header">
+      <TopBar />
+      <Navbar />
+    </header>
+  );
 };
 
 export default Header;
