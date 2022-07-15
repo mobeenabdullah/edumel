@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-
+import Button from "../components/Button";
 const CtaBanner = () => {
   return (
     <section className="cta-intro section-padding-btm">
@@ -17,9 +16,7 @@ const CtaBanner = () => {
 
                 <div className="col-xl-4 col-lg-4 col-md-6">
                   <div className="text-center text-md-end">
-                    <Link to="/" className="btn btn-main rounded">
-                      Get started
-                    </Link>
+                    <Button label="Get started" link="/" />
                   </div>
                 </div>
               </div>

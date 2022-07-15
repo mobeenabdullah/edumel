@@ -1,5 +1,5 @@
 import Illustration from "../assets/images/banner/illustration.png";
-import { Link } from "react-router-dom";
+import Button from "../components/Button";
 const BecomeInstructor = () => {
   return (
     <section class="be-instructor section-padding-btm">
@@ -25,9 +25,7 @@ const BecomeInstructor = () => {
                 quisquam amet deleniti!
               </p>
 
-              <Link to="/" class="btn btn-main rounded">
-                Start Teaching today
-              </Link>
+              <Button label="Start Teaching today" link="/" />
             </div>
           </div>
         </div>
