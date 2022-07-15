@@ -40,7 +40,7 @@ const HeroBanner = () => {
 
           <div className="col-md-12 col-xl-6 col-lg-6">
             <div className="banner-img-round mt-5 mt-lg-0">
-              <img src={BannerImage} alt="Hero Banner" class="img-fluid" />
+              <img src={BannerImage} alt="Hero Banner" className="img-fluid" />
             </div>
           </div>
         </div>

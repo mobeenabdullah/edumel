@@ -9,4 +9,4 @@ export const all_instructors_url = `https://mobeena2.sg-host.com/wp-json/edumel/
 export const course_instructors_url = `https://mobeena2.sg-host.com/wp-json/edumel/course_instructors=?course_id=`;
 export const all_reviews_url = `https://mobeena2.sg-host.com/wp-json/edumel/reviews`;
 export const course_reviews_url = `https://mobeena2.sg-host.com/wp-json/edumel/course_reviews?course_id=`;
-export const search_url = `https://mobeena2.sg-host.com/wp-json/edumel/search?keyword=`;
+export const search_url = `https://mobeena2.sg-host.com/wp-json/edumel/search_course?keyword=`;
