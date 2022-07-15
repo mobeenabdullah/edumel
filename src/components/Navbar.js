@@ -1,6 +1,7 @@
 import Logo from "../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import NavCategories from "./NavCategories";
+import Button from "../components/Button";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
@@ -53,9 +54,7 @@ const Navbar = () => {
             <Link to="login" className="login">
               Login
             </Link>
-            <Link to="register" className="btn btn-main-2 btn-sm-2 rounded">
-              Sign up
-            </Link>
+            <Button label="Sign up" link="/register" />
           </div>
         </div>
       </div>

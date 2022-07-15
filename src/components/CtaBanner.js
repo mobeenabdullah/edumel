@@ -16,7 +16,7 @@ const CtaBanner = () => {
 
                 <div className="col-xl-4 col-lg-4 col-md-6">
                   <div className="text-center text-md-end">
-                    <Button label="Get started" link="/" />
+                    <Button label="Get started" link="/" btnclass="" />
                   </div>
                 </div>
               </div>

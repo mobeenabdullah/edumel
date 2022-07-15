@@ -1,5 +1,9 @@
 import Logo from "../assets/images/logo-white.png";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { courses_categories_url } from "../utils/constants";
+import { Loading, Error } from "../components";
+import { useCoursesContext } from "../context/courses_context";
 import {
   FaFacebookF,
   FaTwitter,
@@ -9,6 +13,17 @@ import {
 } from "react-icons/fa";
 
 const Footer = () => {
+  const {
+    course_categories_loading: loading,
+    course_categories_error: error,
+    course_categories: categories,
+    fetchCourseCategories,
+  } = useCoursesContext();
+
+  useEffect(() => {
+    fetchCourseCategories(`${courses_categories_url}`);
+  }, []);
+
   return (
     <section className="footer">
       <div className="footer-mid">
@@ -49,18 +64,15 @@ const Footer = () => {
               <div className="footer-widget mb-5 mb-xl-0">
                 <h5 className="widget-title ">Categories</h5>
                 <ul className="list-unstyled footer-links">
-                  <li>
-                    <Link to="/">SEO Business</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Digital Marketing</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Graphic Design</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Social Marketing</Link>
-                  </li>
+                  {loading && <Loading />}
+                  {error && <Error />}
+                  {categories.map((category) => {
+                    return (
+                      <li key={category.id} {...category}>
+                        <Link to={`/${category.slug}`}>{category.name}</Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>

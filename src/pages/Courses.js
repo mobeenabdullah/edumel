@@ -1,7 +1,4 @@
-import PageHeader from "../components/PageHeader";
-import CourseCard from "../components/CourseCard";
-import Loading from "../components/Loading";
-import Error from "../components/Error";
+import { PageHeader, CourseCard, Loading, Error } from "../components";
 import { useCoursesContext } from "../context/courses_context";
 
 const Courses = () => {
@@ -46,7 +43,6 @@ const Courses = () => {
             {loading && <Loading />}
             {error && <Error />}
             {courses.map((course) => {
-              console.log(course);
               return <CourseCard key={course.id} {...course} />;
             })}
           </div>

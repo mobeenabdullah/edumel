@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
-import CategoryIcon from "../assets/icon/icon1.png";
+import { useEffect } from "react";
+import { courses_categories_url } from "../utils/constants";
+import { Loading, Error, CourseCategoryCard } from "../components";
+import { useCoursesContext } from "../context/courses_context";
 
 const CategoriesSection = () => {
+  const {
+    course_categories_loading: loading,
+    course_categories_error: error,
+    course_categories: categories,
+    fetchCourseCategories,
+  } = useCoursesContext();
+
+  useEffect(() => {
+    fetchCourseCategories(`${courses_categories_url}`);
+  }, []);
+
   return (
     <section className="section-padding">
       <div className="container-fluid container-grid">
@@ -15,161 +28,11 @@ const CategoriesSection = () => {
         </div>
 
         <div className="row">
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2 mb-20">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Data Science & Analytics</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Web Development</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Artificial Intellegence</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Digital marketing</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2 ">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Artificial Intellegence</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Web Development</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Data Science & Analytics</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Health & Fitness</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Marketing</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Web Development</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Photography</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-3 col-lg-4 col-md-6">
-            <div className="single-course-category style-2 ">
-              <div className="course-cat-icon">
-                <img src={CategoryIcon} alt="" className="img-fluid" />
-              </div>
-              <div className="course-cat-content">
-                <h4 className="course-cat-title">
-                  <Link to="/">Data Science</Link>
-                </h4>
-              </div>
-            </div>
-          </div>
+          {loading && <Loading />}
+          {error && <Error />}
+          {categories.map((category) => {
+            return <CourseCategoryCard key={category.id} {...category} />;
+          })}
         </div>
       </div>
     </section>

@@ -1,16 +1,41 @@
-import { Link } from "react-router-dom";
-import CourseAuthor from "../assets/course/course-author.png";
-import CourseThumbnail from "../assets/course/img_01.jpg";
-import BlogAurthor from "../assets/blog/author.jpg";
-import {
-  FaStar,
-  FaUser,
-  FaCheck,
-  FaArrowRight,
-  FaStarHalf,
-} from "react-icons/fa";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useCoursesContext } from "../context/courses_context";
+import { single_course_url } from "../utils/constants";
+import { Loading, Error } from "../components";
+
+import { FaStar, FaUser, FaArrowRight, FaStarHalf } from "react-icons/fa";
 
 const SingleCourse = () => {
+  const { id } = useParams();
+  const {
+    single_course_loading: loading,
+    single_course_error: error,
+    single_course: course,
+    fetchSingleCourse,
+  } = useCoursesContext();
+
+  useEffect(() => {
+    fetchSingleCourse(`${single_course_url}${id}`);
+  }, [id]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
+  const {
+    title,
+    featured_image_url,
+    content,
+    course_info,
+    course_content,
+    material_includes,
+  } = course;
+
   return (
     <div>
       <section className="course-page-header  page-header-3">
@@ -18,7 +43,11 @@ const SingleCourse = () => {
           <div className="row">
             <div className="col-lg-8 col-xl-8">
               <div className="course-header-wrapper mb-0 bg-transparent">
-                <h1 className="mb-3">Mastering PHP from zero to hero</h1>
+                <h1 className="mb-3">
+                  {title}
+                  {/* {regular_price}
+                  {discount} */}
+                </h1>
                 <p>
                   Grursus mal suada faci lisis Lorem ipsum dolarorit more
                   ametion consectetur elit. Vesti at bulum nec odio. Dacere
@@ -30,7 +59,7 @@ const SingleCourse = () => {
                   <ul className="inline-list list-info">
                     <li>
                       <div className="course-author">
-                        <img src={CourseAuthor} alt="#" />
+                        <img src="" alt="#" />
                         Madge Alvarez
                       </div>
                     </li>
@@ -73,49 +102,7 @@ const SingleCourse = () => {
             <div className="col-xl-8 col-lg-7">
               <div className="single-course-details mb-4">
                 <h4 className="course-title">Description</h4>
-                <p>
-                  Knowing PHP has allowed me to make enough money to stay home
-                  and make courses like this one for students all over the
-                  world. Being a PHP developer can allow anyone to make really
-                  good money online and offline, developing dynamic
-                  applications. Knowing PHP will allow you to build web
-                  applications, websites or Content Management systems, like
-                  WordPress, Facebook, Twitter or even Google. There is no limit
-                  to what you can do with this knowledge. PHP is one of the most
-                  important web programming languages to learn, and knowing it,
-                  will give you SUPER POWERS in the web
-                </p>
-
-                <div className="course-widget course-info">
-                  <h4 className="course-title">What You will Learn?</h4>
-                  <ul>
-                    <li>
-                      <FaCheck />
-                      Clean up face imperfections, improve and repair photos
-                    </li>
-                    <li>
-                      <FaCheck />
-                      Remove people or objects from photos
-                    </li>
-                    <li>
-                      <FaCheck />
-                      Master selections, layers, and working with the layers
-                      panel
-                    </li>
-                    <li>
-                      <FaCheck />
-                      Use creative effects to design stunning text styles
-                    </li>
-                    <li>
-                      <FaCheck />
-                      working with the layers panel
-                    </li>
-                    <li>
-                      <FaCheck />
-                      Cut away a person from their background
-                    </li>
-                  </ul>
-                </div>
+                <div dangerouslySetInnerHTML={{ __html: content }} />
               </div>
               <div className="tutori-course-curriculum">
                 <div className="curriculum-scrollable">
@@ -265,7 +252,7 @@ const SingleCourse = () => {
                     <div className="course-review ">
                       <div className="course-single-review">
                         <div className="user-image">
-                          <img src={BlogAurthor} alt="" className="img-fluid" />
+                          <img src="" alt="" className="img-fluid" />
                         </div>
 
                         <div className="user-content user-review-content">
@@ -309,7 +296,7 @@ const SingleCourse = () => {
                     <div className="course-review">
                       <div className="course-single-review">
                         <div className="user-image">
-                          <img src={BlogAurthor} alt="" className="img-fluid" />
+                          <img src="" alt="" className="img-fluid" />
                         </div>
 
                         <div className="user-content user-review-content">
@@ -357,13 +344,17 @@ const SingleCourse = () => {
               <div className="course-sidebar course-sidebar-3 mt-5 mt-lg-0">
                 <div className="course-widget course-details-info ">
                   <div className="course-thumbnail">
-                    <img src={CourseThumbnail} alt="" className="img-fluid" />
+                    <img
+                      src={featured_image_url}
+                      alt={title}
+                      className="img-fluid"
+                    />
                   </div>
 
                   <div className="course-sidebar-details">
                     <div className="price-header">
                       <h2 className="course-price">
-                        $120.00 <span>$150</span>
+                        $120 <span>$150</span>
                       </h2>
                       <span className="course-price-badge onsale">39% off</span>
                     </div>
@@ -454,7 +445,7 @@ const SingleCourse = () => {
                   <li>
                     <div className="widget-post-thumb">
                       <Link to="/">
-                        <img src={CourseAuthor} alt="" className="img-fluid" />
+                        <img src="" alt="" className="img-fluid" />
                       </Link>
                     </div>
                     <div className="widget-post-body">
@@ -468,7 +459,7 @@ const SingleCourse = () => {
                   <li>
                     <div className="widget-post-thumb">
                       <Link to="/">
-                        <img src={CourseAuthor} alt="" className="img-fluid" />
+                        <img src="" alt="" className="img-fluid" />
                       </Link>
                     </div>
                     <div className="widget-post-body">
@@ -482,7 +473,7 @@ const SingleCourse = () => {
                   <li>
                     <div className="widget-post-thumb">
                       <Link to="/">
-                        <img src={CourseAuthor} alt="" className="img-fluid" />
+                        <img src="" alt="" className="img-fluid" />
                       </Link>
                     </div>
                     <div className="widget-post-body">

@@ -9,9 +9,9 @@ import { CoursesProvider } from "./context/courses_context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <CoursesProvider>
-      <App />
-    </CoursesProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <CoursesProvider>
+    <App />
+  </CoursesProvider>
+  // </React.StrictMode>
 );
