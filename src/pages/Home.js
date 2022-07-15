@@ -10,7 +10,7 @@ import BecomeInstructor from "../components/BecomeInstructor";
 
 const Home = () => {
   return (
-    <div>      
+    <div>
       <HeroBanner />
       <FeaturesIntro />
       <CategoriesSection />

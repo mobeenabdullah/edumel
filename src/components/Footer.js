@@ -25,7 +25,6 @@ const Footer = () => {
                 </p>
               </div>
             </div>
-
             <div className="col-xl-2 col-sm-4">
               <div className="footer-widget mb-5 mb-xl-0">
                 <h5 className="widget-title">Explore</h5>
