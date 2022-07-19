@@ -19,7 +19,7 @@ const SingleCourse = () => {
     fetchSingleCourse(`${single_course_url}${id}`);
   }, [id]);
 
-  if (loading) {
+  if (loading || Object.keys(course).length === 0) {
     return <Loading />;
   }
 
@@ -31,9 +31,22 @@ const SingleCourse = () => {
     title,
     featured_image_url,
     content,
-    course_info,
-    course_content,
-    material_includes,
+    excerpt,
+    course_info: {
+      regular_price,
+      sale_price,
+      discount,
+      lectures_count,
+      level,
+      enrolled_students,
+      duration,
+      language,
+      updated,
+    },
+    course_content: { sections },
+    material_includes: { material_items },
+    instructor_id,
+    reviews,
   } = course;
 
   return (
@@ -43,17 +56,8 @@ const SingleCourse = () => {
           <div className="row">
             <div className="col-lg-8 col-xl-8">
               <div className="course-header-wrapper mb-0 bg-transparent">
-                <h1 className="mb-3">
-                  {title}
-                  {/* {regular_price}
-                  {discount} */}
-                </h1>
-                <p>
-                  Grursus mal suada faci lisis Lorem ipsum dolarorit more
-                  ametion consectetur elit. Vesti at bulum nec odio. Dacere
-                  agemusque constantius concessis elit videmusne quia stoici
-                  constructio dissimillimas audiunt homerus commendationes
-                </p>
+                <h1 className="mb-3">{title}</h1>
+                <div>{excerpt}</div>
 
                 <div className="course-header-meta">
                   <ul className="inline-list list-info">
@@ -85,8 +89,7 @@ const SingleCourse = () => {
                       </div>
                     </li>
                     <li>
-                      <FaUser />
-                      11 enrolled students
+                      <FaUser /> {lectures_count} enrolled students
                     </li>
                   </ul>
                 </div>
