@@ -1,4 +1,3 @@
-//import BannerImage from "../assets/images/banner/banner_img.png";
 import BannerImage from "../assets/images/banner/banner_img.png";
 import { Link } from "react-router-dom";
 

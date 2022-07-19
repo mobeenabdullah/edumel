@@ -1,5 +1,9 @@
 const Loading = () => {
-  return <h3>Loading...</h3>;
+  return (
+    <div className="spinner-border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  );
 };
 
 export default Loading;

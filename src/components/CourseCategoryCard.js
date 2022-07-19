@@ -8,7 +8,7 @@ const CourseCategoryCard = ({ icon, name, slug }) => {
         </div>
         <div className="course-cat-content">
           <h4 className="course-cat-title">
-            <Link to={`/${slug}`}>{name}</Link>
+            <Link to={`/${slug}`} dangerouslySetInnerHTML={{ __html: name }} />
           </h4>
         </div>
       </div>
