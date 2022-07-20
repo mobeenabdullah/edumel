@@ -13,6 +13,9 @@ import {
   GET_COURSE_CATEGORIES_BEGIN,
   GET_COURSE_CATEGORIES_SUCCESS,
   GET_COURSE_CATEGORIES_ERROR,
+  GET_COURSE_REVIEWS_BEGIN,
+  GET_COURSE_REVIEWS_SUCCESS,
+  GET_COURSE_REVIEWS_ERROR,
 } from "../actions";
 
 const initialState = {
@@ -26,6 +29,9 @@ const initialState = {
   course_categories_loading: false,
   course_categories_error: false,
   course_categories: [],
+  course_reviews_loading: false,
+  course_reviews_error: false,
+  course_reviews: [],
 };
 
 const CoursesContext = React.createContext();
@@ -66,13 +72,29 @@ export const CoursesProvider = ({ children }) => {
     }
   };
 
+  const fetchCourseReviews = async (url) => {
+    dispatch({ type: GET_COURSE_REVIEWS_BEGIN });
+    try {
+      const response = await axios.get(url);
+      const course_reviews = response.data;
+      dispatch({ type: GET_COURSE_REVIEWS_SUCCESS, payload: course_reviews });
+    } catch (error) {
+      dispatch({ type: GET_COURSE_REVIEWS_ERROR, payload: error });
+    }
+  };
+
   useEffect(() => {
     fetchCourses(courses_url);
   }, []);
 
   return (
     <CoursesContext.Provider
-      value={{ ...state, fetchSingleCourse, fetchCourseCategories }}
+      value={{
+        ...state,
+        fetchSingleCourse,
+        fetchCourseCategories,
+        fetchCourseReviews,
+      }}
     >
       {children}
     </CoursesContext.Provider>

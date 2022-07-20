@@ -1,4 +1,3 @@
-import Logo from "../assets/images/logo-white.png";
 import { Link } from "react-router-dom";
 import { useOptionsContext } from "../context/options_context";
 import { FaFacebookF } from "react-icons/fa";

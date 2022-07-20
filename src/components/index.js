@@ -18,6 +18,8 @@ import TestimonialsSection from "./TestimonialsSection";
 import TopBar from "./TopBar";
 import WorkProcess from "./WorkProcess";
 import CourseCategoryCard from "./CourseCategoryCard";
+import Stars from "./Stars";
+
 export {
   Header,
   Footer,
@@ -39,4 +41,5 @@ export {
   TopBar,
   WorkProcess,
   CourseCategoryCard,
+  Stars,
 };

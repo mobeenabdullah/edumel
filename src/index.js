@@ -7,14 +7,17 @@ import "./assets/css/responsive.css";
 import App from "./App";
 import { CoursesProvider } from "./context/courses_context";
 import { OptionsProvider } from "./context/options_context";
+import { ReviewsProvider } from "./context/reviews_context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
+
   <OptionsProvider>
     <CoursesProvider>
       <App />
     </CoursesProvider>
   </OptionsProvider>
+
   // </React.StrictMode>
 );

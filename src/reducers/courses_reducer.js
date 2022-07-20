@@ -8,6 +8,9 @@ import {
   GET_COURSE_CATEGORIES_BEGIN,
   GET_COURSE_CATEGORIES_SUCCESS,
   GET_COURSE_CATEGORIES_ERROR,
+  GET_COURSE_REVIEWS_BEGIN,
+  GET_COURSE_REVIEWS_SUCCESS,
+  GET_COURSE_REVIEWS_ERROR,
 } from "../actions";
 
 const courses_reducer = (state, action) => {
@@ -54,6 +57,29 @@ const courses_reducer = (state, action) => {
   }
 
   if (action.type === GET_SINGLE_COURSE_ERROR) {
+    return {
+      ...state,
+      single_course_loading: false,
+      single_course_error: true,
+    };
+  }
+
+  if (action.type === GET_COURSE_REVIEWS_BEGIN) {
+    return {
+      ...state,
+      course_reviews_loading: true,
+    };
+  }
+
+  if (action.type === GET_COURSE_REVIEWS_SUCCESS) {
+    return {
+      ...state,
+      single_course_loading: false,
+      course_reviews: action.payload,
+    };
+  }
+
+  if (action.type === GET_COURSE_REVIEWS_ERROR) {
     return {
       ...state,
       single_course_loading: false,

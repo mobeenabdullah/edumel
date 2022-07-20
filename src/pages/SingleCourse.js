@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCoursesContext } from "../context/courses_context";
-import { single_course_url } from "../utils/constants";
-import { Loading, Error } from "../components";
+import { single_course_url, course_reviews_url } from "../utils/constants";
+import { Loading, Error, Stars } from "../components";
+import { formatPrice } from "../utils/helpers";
 
-import { FaStar, FaUser, FaArrowRight, FaStarHalf } from "react-icons/fa";
+import {
+  FaStar,
+  FaUser,
+  FaLongArrowAltRight,
+  FaStarHalf,
+} from "react-icons/fa";
 
 const SingleCourse = () => {
   const { id } = useParams();
@@ -13,11 +19,17 @@ const SingleCourse = () => {
     single_course_error: error,
     single_course: course,
     fetchSingleCourse,
+    course_reviews,
+    fetchCourseReviews,
   } = useCoursesContext();
 
   useEffect(() => {
     fetchSingleCourse(`${single_course_url}${id}`);
   }, [id]);
+
+  useEffect(() => {
+    fetchCourseReviews(`${course_reviews_url}${id}`);
+  }, []);
 
   if (loading || Object.keys(course).length === 0) {
     return <Loading />;
@@ -89,7 +101,7 @@ const SingleCourse = () => {
                       </div>
                     </li>
                     <li>
-                      <FaUser /> {lectures_count} enrolled students
+                      <FaUser /> {enrolled_students} enrolled students
                     </li>
                   </ul>
                 </div>
@@ -110,235 +122,148 @@ const SingleCourse = () => {
               <div className="tutori-course-curriculum">
                 <div className="curriculum-scrollable">
                   <ul className="curriculum-sections">
-                    <li className="section">
-                      <div className="section-header">
-                        <div className="section-left">
-                          <h5 className="section-title">
-                            Change simplification
-                          </h5>
-                          <p className="section-desc">
-                            Dacere agemusque constantius concessis elit
-                            videmusne quia stoici constructio dissimillimas
-                            audiunt homerus commendationes
-                          </p>
-                        </div>
-                      </div>
+                    {sections.map((item, index) => {
+                      return (
+                        <li className="section" key={index}>
+                          <div className="section-header">
+                            <div className="section-left">
+                              <h5 className="section-title">
+                                {item.section_title}
+                              </h5>
+                              <p className="section-desc">
+                                {item.section_description}
+                              </p>
+                            </div>
+                          </div>
 
-                      <ul className="section-content">
-                        <li className="course-item has-status course-item-lp_lesson">
-                          <Link className="section-item-link" to="/">
-                            <span className="item-name">
-                              The importance of data nowsaday
-                            </span>
-                            <div className="course-item-meta">
-                              <span className="item-meta duration">
-                                10.30 min
-                              </span>
-                              <i className="item-meta course-item-status"></i>
-                            </div>
-                          </Link>
+                          <ul className="section-content">
+                            {item.content.map((item, index) => {
+                              const [icon] = item.content_type;
+                              return (
+                                <li
+                                  className="course-item has-status course-item-lp_lesson"
+                                  key={index}
+                                >
+                                  <Link className="section-item-link" to="/">
+                                    {icon && icon === "video" ? (
+                                      <svg
+                                        width="24"
+                                        height="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        aria-labelledby="videoIconTitle"
+                                        stroke="#000"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        fill="none"
+                                        color="#000"
+                                      >
+                                        <path d="m18 12-9 4.9V7z" />
+                                        <circle cx="12" cy="12" r="10" />
+                                      </svg>
+                                    ) : (
+                                      ""
+                                    )}
+                                    {icon && icon === "assignment" ? (
+                                      <svg
+                                        width="24"
+                                        height="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M10.748 2h2.505a2.25 2.25 0 0 1 2.245 2.096l.005.154v.25h1.242a3.25 3.25 0 0 1 3.25 3.25v12.005a2.25 2.25 0 0 1-2.25 2.25H6.25A2.25 2.25 0 0 1 4 19.755V7.75A3.25 3.25 0 0 1 7.25 4.5h1.247v-.25a2.25 2.25 0 0 1 2.096-2.245L10.748 2h2.505-2.505Zm5.997 4H7.25A1.75 1.75 0 0 0 5.5 7.75v12.005c0 .414.336.75.75.75h11.495a.75.75 0 0 0 .75-.75V7.75A1.75 1.75 0 0 0 16.745 6Zm-1.494 7.5c.966 0 1.75.784 1.75 1.75v1.997a1.75 1.75 0 0 1-1.75 1.75H8.752a1.75 1.75 0 0 1-1.75-1.75V15.25c0-.966.784-1.75 1.75-1.75h6.499Zm0 1.5H8.752a.25.25 0 0 0-.25.25v1.997c0 .138.112.25.25.25h6.499a.25.25 0 0 0 .25-.25V15.25a.25.25 0 0 0-.25-.25ZM10.75 9.5h2.5a.75.75 0 0 1 .102 1.493L13.25 11h-2.5a.75.75 0 0 1-.102-1.493l.102-.007h2.5-2.5Zm2.503-6h-2.505a.75.75 0 0 0-.744.648l-.006.102-.001.25h4.006v-.25a.75.75 0 0 0-.648-.743l-.102-.007Z"
+                                          fill="#212121"
+                                        />
+                                      </svg>
+                                    ) : (
+                                      ""
+                                    )}
+                                    {icon && icon === "quiz" ? (
+                                      <svg
+                                        fill="#000000"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 18 18"
+                                        width="30"
+                                        height="30"
+                                      >
+                                        <path d="M 4.5 2 C 3.675781 2 3 2.675781 3 3.5 L 3 12.5 C 3 13.324219 3.675781 14 4.5 14 L 11.5 14 C 12.324219 14 13 13.324219 13 12.5 L 13 5.292969 L 9.707031 2 Z M 4.5 3 L 9 3 L 9 6 L 12 6 L 12 12.5 C 12 12.78125 11.78125 13 11.5 13 L 4.5 13 C 4.21875 13 4 12.78125 4 12.5 L 4 3.5 C 4 3.21875 4.21875 3 4.5 3 Z M 10 3.707031 L 11.292969 5 L 10 5 Z M 6 8 L 6 9 L 10 9 L 10 8 Z M 6 10 L 6 11 L 9 11 L 9 10 Z" />
+                                      </svg>
+                                    ) : (
+                                      ""
+                                    )}
+                                    <span className="item-name">
+                                      {item.content_title}
+                                    </span>
+                                    <div className="course-item-meta">
+                                      <span className="item-meta duration">
+                                        {item.content_duration} Min
+                                      </span>
+                                      <i className="item-meta course-item-status"></i>
+                                    </div>
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          </ul>
                         </li>
-
-                        <li className="course-item has-status course-item-lp_lesson">
-                          <Link className="section-item-link" to="/">
-                            <span className="item-name">
-                              Why my organization should know about data
-                            </span>
-                            <div className="course-item-meta">
-                              <span className="item-meta duration">
-                                20.30 min
-                              </span>
-                              <i className="item-meta course-item-status"></i>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li className="course-item course-item-lp_assignment course-item-lp_lesson">
-                          <Link className="section-item-link" to="/">
-                            <span className="item-name">Assignments</span>
-                            <div className="course-item-meta">
-                              <span className="item-meta count-questions">
-                                14 questions
-                              </span>
-                              <span className="item-meta duration">
-                                10.21 min
-                              </span>
-                              <i className="fa item-meta course-item-status trans"></i>
-                            </div>
-                          </Link>
-                        </li>
-                        <li className="course-item course-item-lp_quiz course-item-lp_lesson">
-                          <Link className="section-item-link" to="/">
-                            <span className="item-name">Quiz 1</span>
-                            <div className="course-item-meta">
-                              <span className="item-meta count-questions">
-                                14 questions
-                              </span>
-                              <span className="item-meta duration">
-                                5.67 min
-                              </span>
-                              <i className="fa item-meta course-item-status trans"></i>
-                            </div>
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
-                    <li className="section">
-                      <div className="section-header">
-                        <div className="section-left">
-                          <h5 className="section-title">Key concepts </h5>
-                          <p className="section-desc">
-                            Dacere agemusque constantius concessis elit
-                            videmusne quia stoici constructio dissimillimas
-                            audiunt homerus commendationes
-                          </p>
-                        </div>
-                      </div>
-
-                      <ul className="section-content">
-                        <li className="course-item has-status course-item-lp_lesson">
-                          <Link className="section-item-link" to="/">
-                            <span className="item-name">
-                              Basic understanding of data management concepts
-                            </span>
-                            <div className="course-item-meta">
-                              <span className="item-meta duration">10 min</span>
-                              <i className="item-meta course-item-status"></i>
-                            </div>
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
-
-                    <li className="section">
-                      <ul className="section-content">
-                        <li className="course-item has-status course-item-lp_lesson">
-                          <Link className="section-item-link" to="/">
-                            <span className="item-name">
-                              Apply the principles{" "}
-                            </span>
-                            <div className="course-item-meta">
-                              <span className="item-meta duration">10 min</span>
-                              <i className="item-meta course-item-status"></i>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li className="course-item has-status course-item-lp_lesson">
-                          <Link className="section-item-link" to="/">
-                            <span className="item-name">Lesson 2</span>
-                            <div className="course-item-meta">
-                              <span className="item-meta duration">20 min</span>
-                              <i className="item-meta course-item-status"></i>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li className="course-item has-status course-item-lp_lesson">
-                          <Link className="section-item-link" to="/">
-                            <span className="item-name">Lesson 3</span>
-                            <div className="course-item-meta">
-                              <span className="item-meta duration">5 min</span>
-                              <i className="item-meta course-item-status"></i>
-                            </div>
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
               <div id="course-reviews ">
                 <h4 className="course-title mb-4">Reviews</h4>
                 <ul className="course-reviews-list course-reviews-2">
-                  <li>
-                    <div className="course-review ">
-                      <div className="course-single-review">
-                        <div className="user-image">
-                          <img src="" alt="" className="img-fluid" />
-                        </div>
+                  {course_reviews.map((item) => {
+                    return (
+                      <li key={item.id}>
+                        <div className="course-review ">
+                          <div className="course-single-review">
+                            <div className="user-image">
+                              <img
+                                src={item.profile_image}
+                                alt={item.title}
+                                className="img-fluid"
+                              />
+                            </div>
 
-                        <div className="user-content user-review-content">
-                          <div className="review-header mb-10">
-                            <h4 className="user-name">Tutori</h4>
-                            <p className="review-title">Cover all topicc </p>
-                            <div className="rating review-stars-rated">
-                              <Link to="/">
-                                <FaStar />
-                              </Link>
-                              <Link to="/">
-                                <FaStar />
-                              </Link>
-                              <Link to="/">
-                                <FaStar />
-                              </Link>
-                              <Link to="/">
-                                <FaStar />
-                              </Link>
-                              <Link to="/">
-                                <FaStarHalf />
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="review-text">
-                            <div className="review-content">
-                              The course identify things we want to change and
-                              then figure out the things that need to be done to
-                              create the desired outcome. The course helped me
-                              in clearly define problems and generate a wider
-                              variety of quality solutions. Support more
-                              structures analysis of options leading to better
-                              decisions.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="course-review">
-                      <div className="course-single-review">
-                        <div className="user-image">
-                          <img src="" alt="" className="img-fluid" />
-                        </div>
-
-                        <div className="user-content user-review-content">
-                          <div className="review-header mb-10">
-                            <h4 className="user-name">Tutori</h4>
-                            <p className="review-title">Cover all topicc </p>
-                            <div className="rating review-stars-rated">
-                              <Link to="/">
-                                <FaStar />
-                              </Link>
-                              <Link to="/">
-                                <FaStar />
-                              </Link>
-                              <Link to="/">
-                                <FaStar />
-                              </Link>
-                              <Link to="/">
-                                <FaStar />
-                              </Link>
-                              <Link to="/">
-                                <FaStarHalf />
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="review-text">
-                            <div className="review-content">
-                              The course identify things we want to change and
-                              then figure out the things that need to be done to
-                              create the desired outcome. The course helped me
-                              in clearly define problems and generate a wider
-                              variety of quality solutions. Support more
-                              structures analysis of options leading to better
-                              decisions.
+                            <div className="user-content user-review-content">
+                              <div className="review-header mb-10">
+                                <h4 className="user-name">{item.name}</h4>
+                                <p className="review-title">{item.title}</p>
+                                <div className="rating review-stars-rated">
+                                  <Stars stars={item.stars} />
+                                  <Link to="/">
+                                    <FaStar />
+                                  </Link>
+                                  <Link to="/">
+                                    <FaStar />
+                                  </Link>
+                                  <Link to="/">
+                                    <FaStar />
+                                  </Link>
+                                  <Link to="/">
+                                    <FaStar />
+                                  </Link>
+                                  <Link to="/">
+                                    <FaStarHalf />
+                                  </Link>
+                                </div>
+                              </div>
+                              <div className="review-text">
+                                <div
+                                  className="review-content"
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.content,
+                                  }}
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </li>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>
@@ -357,9 +282,10 @@ const SingleCourse = () => {
                   <div className="course-sidebar-details">
                     <div className="price-header">
                       <h2 className="course-price">
-                        $120 <span>$150</span>
+                        {formatPrice(regular_price)}
+                        {/* <span>$150</span> */}
                       </h2>
-                      <span className="course-price-badge onsale">39% off</span>
+                      {/* <span className="course-price-badge onsale">39% off</span> */}
                     </div>
                     <ul className="course-sidebar-list">
                       <li>
@@ -367,7 +293,7 @@ const SingleCourse = () => {
                           <span>
                             <i className="far fa-sliders-h"></i>Level
                           </span>
-                          Beginnner
+                          {level}
                         </div>
                       </li>
 
@@ -384,7 +310,7 @@ const SingleCourse = () => {
                           <span>
                             <i className="far fa-user"></i>Students
                           </span>
-                          20
+                          {enrolled_students}
                         </div>
                       </li>
                       <li>
@@ -392,7 +318,7 @@ const SingleCourse = () => {
                           <span>
                             <i className="far fa-clock"></i>Duration
                           </span>
-                          6 hours
+                          {duration}
                         </div>
                       </li>
                       <li>
@@ -400,7 +326,7 @@ const SingleCourse = () => {
                           <span>
                             <i className="far fa-globe"></i>Language
                           </span>
-                          English
+                          {language}
                         </div>
                       </li>
 
@@ -409,7 +335,7 @@ const SingleCourse = () => {
                           <span>
                             <i className="far fa-calendar"></i>Updated{" "}
                           </span>
-                          October 15, 2022
+                          {updated}
                         </div>
                       </li>
                     </ul>
@@ -424,18 +350,14 @@ const SingleCourse = () => {
                     <div className="course-meterial">
                       <h4 className="mb-3">Material Includes</h4>
                       <ul className="course-meterial-list">
-                        <li>
-                          <FaArrowRight />
-                          Videos
-                        </li>
-                        <li>
-                          <FaArrowRight />
-                          Files For Development
-                        </li>
-                        <li>
-                          <FaArrowRight />
-                          Documentation Files
-                        </li>
+                        {material_items.map((item, index) => {
+                          return (
+                            <li key={index}>
+                              <FaLongArrowAltRight />
+                              {item.material_item}
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   </div>
